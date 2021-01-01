@@ -1,0 +1,141 @@
+grad=function(x,y){
+  #just one link?
+  if(missing(y)) {
+    #inserting the link
+    pat="U.*$"
+    require(rvest)
+    require(dplyr)
+    #converting link to text
+    h=read_html(x)
+    nodes=h %>%
+      html_nodes(".tcol3")
+    #cleaning up text
+    a=sub('.*on', '', gadmin)
+    gadmin=sapply(nodes, html_text)[2:length(nodes)]
+    gadmin=sub('.*on', '', gadmin)
+    gadmin=sub(pat, '', gadmin) %>%
+      as.Date("%d %B %Y")
+    #finishing 
+    gadmint_c=as.character(gadmin)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #date estimates
+    lengthp=as.numeric(julian(gadmint_c, origin_date))
+    lengthp=ifelse(lengthp >=200, lengthp-365, lengthp)
+    lengthp=ifelse(lengthp > 3*sd(lengthp) | lengthp < -3*sd(lengthp), NA, lengthp)
+    estd=as.Date("2021-01-01")+mean(lengthp, na.rm=T)
+    print(paste("You should hear SOMETHING  by", estd))
+    invisible(estd)
+    #interview estimates
+    nodes_i=nodes[which(str_extract(as.character(nodes), "Interview") =="Interview")]
+    gadmin_i=sapply(nodes_i, html_text)
+    gadmin_i=sub('.*on', '', gadmin_i)
+    gadmin_i= sub(pat, '', gadmin_i) %>%
+      as.Date("%d %B %Y")
+    #finishing interviews
+    gadmint_ci=as.character(gadmin_i)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #interview estimates
+    lengthpi=as.numeric(julian(gadmint_ci, origin_date))
+    lengthpi=ifelse(lengthpi >=200, lengthpi-365, lengthpi)
+    lengthpi=ifelse(lengthpi > 3*sd(lengthpi) | lengthpi < -3*sd(lengthpi), NA, lengthpi)
+    estdi=as.Date("2021-01-01")+round(mean(lengthpi, na.rm=T),0)
+    print(paste("You should hear about Interviews by ", estdi))
+    invisible(estdi)
+    #acceptance/rejectance estimates
+    nodes_ar=nodes[c(which(str_extract(as.character(nodes), "Rejected") =="Rejected"), which(str_extract(as.character(nodes), "Accepted") =="Accepted"))]
+    gadmin_ar=sapply(nodes_ar, html_text)
+    gadmin_ar=sub('.*on', '', gadmin_ar)
+    gadmin_ar= sub(pat, '', gadmin_ar) %>%
+      as.Date("%d %B %Y")
+    #finishing acceptance/rejectance
+    gadmint_car=as.character(gadmin_ar)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #acceptance/rejections estimates
+    lengthpar=as.numeric(julian(gadmint_car, origin_date))
+    lengthpar=ifelse(lengthpar >=200, lengthpar-365, lengthpar)
+    lengthpar=ifelse(lengthpar > 3*sd(lengthpar) | lengthpar < -3*sd(lengthpar), NA, lengthpar)
+    estdar=as.Date("2021-01-01")+mean(lengthpar, na.rm=T)
+    print(paste("You should hear about Acceptance / Rejections by ", estdar))
+    invisible(estdar)
+  } else {
+    #just two links?
+    #inserting the link
+    pat="U.*$"
+    require(rvest)
+    require(dplyr)
+    #converting link to text
+    hx=read_html(x)
+    hy=read_html(y)
+    nodesx=hx %>%
+      html_nodes(".tcol3")
+    nodesy=hy %>%
+      html_nodes(".tcol3")
+    #cleaning up text
+    gadminx=sapply(nodesx, html_text)[2:length(nodesx)]
+    gadminy=sapply(nodesy, html_text)[2:length(nodesy)]
+    gadminx=sub('.*on', '', gadminx)
+    ax=sub('.*on', '', gadminx)
+    gadminx=sub(pat, '', gadminx) %>%
+      as.Date("%d %B %Y")
+    gadminy=sub('.*on', '', gadminy)
+    ay=sub('.*on', '', gadminy)
+    gadminy=sub(pat, '', gadminy) %>%
+      as.Date("%d %B %Y")
+    gadmin=c(gadminx, gadminy)
+    #finishing 
+    gadmint_c=as.character(gadmin)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #date estimates
+    lengthp=as.numeric(julian(gadmint_c, origin_date))
+    lengthp=ifelse(lengthp >=200, lengthp-365, lengthp)
+    lengthp=ifelse(lengthp > 3*sd(lengthp) | lengthp < -3*sd(lengthp), NA, lengthp)
+    estd=as.Date("2021-01-01")+mean(lengthp, na.rm=T)
+    print(paste("You should hear SOMETHING  by", estd))
+    invisible(estd)
+    #interview estimates
+    nodes_i=nodes[which(str_extract(as.character(nodes), "Interview") =="Interview")]
+    gadmin_i=sapply(nodes_i, html_text)
+    gadmin_i=sub('.*on', '', gadmin_i)
+    gadmin_i= sub(pat, '', gadmin_i) %>%
+      as.Date("%d %B %Y")
+    #finishing interviews
+    gadmint_ci=as.character(gadmin_i)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #interview estimates
+    lengthpi=as.numeric(julian(gadmint_ci, origin_date))
+    lengthpi=ifelse(lengthpi >=200, lengthpi-365, lengthpi)
+    lengthpi=ifelse(lengthpi > 3*sd(lengthpi) | lengthpi < -3*sd(lengthpi), NA, lengthpi)
+    estdi=as.Date("2021-01-01")+round(mean(lengthpi, na.rm=T),0)
+    print(paste("You should hear about Interviews by ", estdi))
+    invisible(estdi)
+    #acceptance/rejectance estimates
+    nodes_ar=nodes[c(which(str_extract(as.character(nodes), "Rejected") =="Rejected"), which(str_extract(as.character(nodes), "Accepted") =="Accepted"))]
+    gadmin_ar=sapply(nodes_ar, html_text)
+    gadmin_ar=sub('.*on', '', gadmin_ar)
+    gadmin_ar= sub(pat, '', gadmin_ar) %>%
+      as.Date("%d %B %Y")
+    #finishing acceptance/rejectance
+    gadmint_car=as.character(gadmin_ar)%>%
+      substring(6)%>%
+      as.Date("%m-%d")
+    origin_date <- as.Date("2020-01-01")
+    #acceptance/rejections estimates
+    lengthpar=as.numeric(julian(gadmint_car, origin_date))
+    lengthpar=ifelse(lengthpar >=200, lengthpar-365, lengthpar)
+    lengthpar=ifelse(lengthpar > 3*sd(lengthpar) | lengthpar < -3*sd(lengthpar), NA, lengthpar)
+    estdar=as.Date("2021-01-01")+mean(lengthpar, na.rm=T)
+    print(paste("You should hear about Acceptance / Rejections by ", estdar))
+    invisible(estdar)
+  }
+}
+

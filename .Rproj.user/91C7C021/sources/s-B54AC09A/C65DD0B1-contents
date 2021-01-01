@@ -1,0 +1,10 @@
+Package: gradest
+Type: Package
+Title: Estimate timeline of admission decisions Using Grad Cafe
+Version: 0.1.0
+Author: Jerbear
+Maintainer: Jerbear <shrinkyblink@gmail.com>
+Description: Use theGradCafe to give an estimate timeline of admission decisions. The purpose of this function is to estimate admission decisions using submissions on Grad Cafe. To do this, it finds the average of days "from" January 1st (controlling for year) and gives an estimate of when you should hear back in general, for interviews, and for decisions.  I wrote this function with my three-year-old baby cousin in my lap, so please forgive me if it looks hastily written. For any questions, please email me, I'd love to hear from you!
+LazyData: FALSE
+Imports: 
+    rvest, dplyr, stringr
